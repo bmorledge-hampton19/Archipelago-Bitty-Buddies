@@ -1,58 +1,33 @@
-# APQuest Randomizer Setup Guide
+# Bitty Buddies Randomizer Setup Guide
 
 ## Required Software
 
 - [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
-- [The APQuest apworld](https://github.com/NewSoupVi/Archipelago/releases), 
-  if not bundled with your version of Archipelago
+- [Bitty Buddies](PLACEHOLDER)
+- [The Bitty Buddies apworld](PLACEHOLDER) (Scroll to the download links at the bottom of the page.)
 
-## Optional Software
+## Archipelago Setup
 
-- [APQuest AP Tracker](https://github.com/palex00/ap-quest-tracker/releases/latest), for use with
-[PopTracker](https://github.com/black-sliver/PopTracker/releases)
+If this is your first time running an archipelago randomizer, you can find lots of helpful
+information about the process in the [Archipelago Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup_en)
 
-## How to play
+Once you've generated a Bitty Buddies settings file (.yaml) and have it hosted somewhere, you're ready for the next
+step!
 
-First, you need a room to connect to. For this, you or someone you know has to generate a game.  
-This will not be explained here,
-but you can check the [Archipelago Setup Guide](/tutorial/Archipelago/setup_en#generating-a-game).
+### Joining the Archipelago Multiworld
 
-You also need to have [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest) installed
-and the [The APQuest apworld](https://github.com/NewSoupVi/Archipelago/releases) installed into Archipelago.
+From the Bitty Buddies main menu, select "Randomizer" to switch to the randomizer's main menu. From there,
+select "Archipelago" and enter the relevant information to connect. The archipelago saves independently
+from the base game or local randomizer, so your high scores will persist if you lose connection.
 
-From here, connecting to your APQuest slot is easy. There are two scenarios.
+## Tracking progress
 
-### Webhost Room
+All of the your progress in the randomizer can be tracked in-game. The check marks below each buddy icon on the
+Bitty Boy represent the number of goal scores you have achieved in that buddy's cartridge. Also, remember that you
+will receive additional checks when you have achieved the first, second, third, and fourth goal scores across ALL
+cartridges (the "buddy power" checks).
 
-If your room is hosted on a WebHost (e.g. [archipelago.gg](https://archipelago.gg)),
-you should be able to simply click on your name in the player list.  
-This will open the Archipelago Launcher
-and ask you whether you want to connect with the Text Client or the APQuest Client.  
-Choose "APQuest Client". The rest should happen completely automatically and you should be able to play APQuest.
-
-### Locally hosted room
-
-If your room does not have a WebHost room page available, you can launch APQuest manually.  
-
-Open the Archipelago Launcher, and then select the APQuest Client from the list.  
-After a short while, the APQuest client should open.  
-Enter the server address at the top and click "Connect".  
-Then, enter your name. If a password exists, enter the password.  
-You should now be connected and able to play APQuest.
-
-## Switching Rooms
-
-The APQuest Client can seamlessly switch rooms without restarting.
-
-Simply click the "Disconnect" button, then connect to a different slot/room.
-
-## Auto-Tracking
-
-AP Quest has a fully functional map tracker that supports auto-tracking.
-
-1. Download [APQuest AP Tracker](https://github.com/palex00/ap-quest-tracker/releases/latest) and
-[PopTracker](https://github.com/black-sliver/PopTracker/releases).
-2. Put the tracker pack into packs/ in your PopTracker install.
-3. Open PopTracker, and load the APQuest pack.
-4. For autotracking, click on the "AP" symbol at the top.
-5. Enter the Archipelago server address (the one you connected your client to), slot name, and password.
+When you are selecting a game to play from the main Bitty Buddies cartridge, both your current high score and
+the maximum score in logic will be displayed. If the logic score is higher than a goal score that you have not
+yet achieved, it will be suffixed with an exclamation point! (This exclamation point will also display for
+Treatment To-Go if the flat tire check is enabled and collectible.)
