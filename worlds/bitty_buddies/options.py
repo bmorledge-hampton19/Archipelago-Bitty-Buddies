@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Choice, NamedRange, Toggle, PerGameCommonOptions, DeathLink
+from Options import Choice, Range, NamedRange, Toggle, PerGameCommonOptions, DeathLink, OptionGroup
 
 
 class CartridgeGoalScores(Choice):
@@ -107,12 +107,25 @@ class DeathLinkReceiveBehavior(Choice):
     If there are no buddies remaining for the current game, a game over is triggered.
     """
 
-    display_name = "Death Link Behavior"
+    display_name = "Death Link Receive Behavior"
 
     option_game_over = 0
     option_next_buddy = 1
 
     default = option_game_over
+
+
+class DeathLinkReceiveChance(Range):
+    """
+    Percentage chance that any received death links will actually impact you.
+    This can make death link in larger archipelagos much more manageable.
+    """
+
+    display_name = "Death Link Receive Chance"
+
+    range_start = 0
+    range_end = 100
+    default = 100
 
 
 @dataclass
@@ -124,9 +137,16 @@ class BittyBuddiesOptions(PerGameCommonOptions):
     flat_tire_check: FlatTireCheck
     death_link: BittyBuddiesDeathLink
     death_link_receive_behavior: DeathLinkReceiveBehavior
+    death_link_receive_chance: DeathLinkReceiveChance
 
 
-# Finally, we can define some option presets if we want the player to be able to quickly choose a specific "mode".
+option_groups = [
+    OptionGroup(
+        "Death Link Options",
+        [BittyBuddiesDeathLink, DeathLinkReceiveBehavior, DeathLinkReceiveChance],
+    ),
+]
+
 option_presets = {
     "easy": {
         "cartridge_goal_scores": CartridgeGoalScores.option_low,

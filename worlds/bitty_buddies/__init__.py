@@ -135,4 +135,5 @@ class BittyBuddiesWorld(World):
             "flat_tire_check" : self.options.flat_tire_check.value,
             "death_link" : self.options.death_link.value,
             "death_link_receive_behavior" : self.options.death_link_receive_behavior.value,
+            "death_link_receive_chance" : self.options.death_link_receive_chance.value
         }
