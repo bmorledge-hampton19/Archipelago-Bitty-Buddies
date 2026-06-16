@@ -80,6 +80,8 @@ class RandomizeBuddyPower(Toggle):
 
     display_name = "Randomize Buddy Power Increases"
 
+    default = True
+
 
 class FlatTireCheck(Toggle):
     """
