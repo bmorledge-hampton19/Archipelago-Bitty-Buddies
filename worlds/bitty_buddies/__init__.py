@@ -22,11 +22,11 @@ class BittyBuddiesWorld(World):
     options: BittyBuddiesOptions
 
 
-    location_name_to_id = {name: data.id for name, data in location_data_dict.items()}
-    item_name_to_id = {name: data.id for name, data in item_data_dict.items()}
+    location_name_to_id = {name.value: data.id for name, data in location_data_dict.items()}
+    item_name_to_id = {name.value: data.id for name, data in item_data_dict.items()}
     item_name_groups = {
-        "Level Ups": {name for name in LEVEL_UP_NAMES},
-        "Score Bonuses": {name for name in BONUS_SCORE_NAMES},
+        "Level Ups": {name.value for name in LEVEL_UP_NAMES},
+        "Score Bonuses": {name.value for name in BONUS_SCORE_NAMES},
     }
 
     def create_item(self, name: ItemName) -> BittyBuddiesItem:
