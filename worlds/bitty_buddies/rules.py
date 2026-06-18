@@ -273,7 +273,9 @@ def get_bonus_points(state: CollectionState, player: int, cartridge: Buddy) -> i
     return bonus_points
 
 
-def get_cartridge_logic_score(state: CollectionState, player: int, options: BittyBuddiesOptions, cartridge: Buddy):
+def get_cartridge_logic_score(
+        state: CollectionState, player: int, options: BittyBuddiesOptions, cartridge: Buddy
+) -> int:
     """Calculates the maximum score in logic for a given cartridge."""
     potential_buddy_scores: dict[Buddy,int] = {}
     for buddy in Buddy:
