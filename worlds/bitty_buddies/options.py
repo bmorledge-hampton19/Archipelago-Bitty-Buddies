@@ -63,7 +63,7 @@ class FinalGoalScore(NamedRange):
     display_name = "Final Goal Score"
 
     range_start = 1
-    range_end = 2000
+    range_end = 1999
     default = 999
 
     special_range_names = {"low": 499, "regular": 999, "high": 1499}
