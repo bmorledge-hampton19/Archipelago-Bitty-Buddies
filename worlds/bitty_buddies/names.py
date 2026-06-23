@@ -82,13 +82,13 @@ BUDDY_POWER_LOCATION_NAMES: list[LocationName] = [
 
 
 class ItemName(StrEnum):
-    BUD_LEVEL_UP = "Bud Progressive Level"
-    BIFF_LEVEL_UP = "Biff Progressive Level"
-    BENSON_LEVEL_UP = "Benson Progressive Level"
-    BRIE_LEVEL_UP = "Brie Progressive Level"
-    BAZZ_LEVEL_UP = "Bazz Progressive Level"
+    BUD_LEVEL_UP = "Bud Level Up"
+    BIFF_LEVEL_UP = "Biff Level Up"
+    BENSON_LEVEL_UP = "Benson Level Up"
+    BRIE_LEVEL_UP = "Brie Level Up"
+    BAZZ_LEVEL_UP = "Bazz Level Up"
 
-    BUDDY_POWER = "Buddy Power Progressive"
+    BUDDY_POWER = "Buddy Power Up"
 
     TRASH_DASH_SCORE = "Trash Dash Bonus Points"
     HAVE_AT_THEE_SCORE = "Have At Thee Bonus Points"
