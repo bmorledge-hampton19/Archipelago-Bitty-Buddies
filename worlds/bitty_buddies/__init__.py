@@ -2,7 +2,7 @@ from typing import Any
 
 from BaseClasses import Region
 from worlds.AutoWorld import World
-from .names import ItemName, LEVEL_UP_NAMES, BONUS_SCORE_NAMES, BUDDY_POWER_LOCATION_NAMES, RegionName
+from .names import LocationName, BUDDY_POWER_LOCATION_NAMES, ItemName, LEVEL_UP_NAMES, BONUS_SCORE_NAMES
 from .regions import region_data_dict
 from .locations import BittyBuddiesLocation, location_data_dict
 from .events import event_data_dict
@@ -29,6 +29,12 @@ class BittyBuddiesWorld(World):
         "Score Bonuses": {name.value for name in BONUS_SCORE_NAMES},
     }
 
+    starter_buddy: ItemName
+    early_buddies: list[ItemName]
+    early_buddy_locations: list[LocationName]
+    guaranteed_buddy_power_location: LocationName
+
+
     def create_item(self, name: ItemName) -> BittyBuddiesItem:
         item_data = item_data_dict[name]
         return BittyBuddiesItem(name, item_data.classification, item_data.id, self.player)
@@ -39,6 +45,41 @@ class BittyBuddiesWorld(World):
     def create_filler(self) -> BittyBuddiesItem:
         """Returns a random filler BittyBuddiesItem (a score bonus) for the given world."""
         return self.create_item(self.get_filler_item_name())
+
+
+    def generate_early(self):
+        # Set up some initial checks with more concrete logic for a less restrictive start.
+
+        # Roll a random starter buddy.
+        self.starter_buddy = self.random.choice(LEVEL_UP_NAMES)
+
+        # Determine which locations are most easily accessible with the starter buddy.
+        if self.starter_buddy == ItemName.BUD_LEVEL_UP:
+            self.early_buddy_locations = [LocationName.TREATMENT_TO_GO_1, LocationName.ACROBIRD_1]
+        elif self.starter_buddy == ItemName.BIFF_LEVEL_UP:
+            self.early_buddy_locations = [LocationName.TRASH_DASH_1, LocationName.BAZZS_BIG_DAY_1]
+        elif self.starter_buddy == ItemName.BENSON_LEVEL_UP:
+            self.early_buddy_locations = [LocationName.HAVE_AT_THEE_1, LocationName.BAZZS_BIG_DAY_1]
+        elif self.starter_buddy == ItemName.BRIE_LEVEL_UP:
+            self.early_buddy_locations = [LocationName.TRASH_DASH_1, LocationName.TREATMENT_TO_GO_1]
+        elif self.starter_buddy == ItemName.BAZZ_LEVEL_UP:
+            self.early_buddy_locations = [LocationName.HAVE_AT_THEE_1, LocationName.ACROBIRD_1]
+
+        # Choose two other buddies to place at these locations.
+        self.early_buddies = []
+        for _ in self.early_buddy_locations:
+            early_buddy = self.random.choice(LEVEL_UP_NAMES)
+            while early_buddy == self.starter_buddy or early_buddy in self.early_buddies:
+                early_buddy = self.random.choice(LEVEL_UP_NAMES)
+            self.early_buddies.append(early_buddy)
+
+        # If buddy power is randomized, make sure that one buddy power increase is guaranteed before mid game.
+        if self.options.randomize_buddy_power:
+            self.guaranteed_buddy_power_location = self.random.choice([
+                LocationName.TRASH_DASH_2, LocationName.HAVE_AT_THEE_2,
+                LocationName.TREATMENT_TO_GO_2, LocationName.ACROBIRD_2,
+                LocationName.BAZZS_BIG_DAY_2
+            ])
 
 
     def create_regions(self):
@@ -87,17 +128,24 @@ class BittyBuddiesWorld(World):
         progression_items: list[BittyBuddiesItem] = []
         waiting_on_prefill = 0
 
-        starting_buddy = self.random.choice(LEVEL_UP_NAMES)
-        self.push_precollected(self.create_item(starting_buddy))
         for level_up in LEVEL_UP_NAMES:
-            quantity = 4 if level_up == starting_buddy else 5
+            quantity: int
+            if level_up == self.starter_buddy:
+                quantity = 4
+                self.push_precollected(self.create_item(self.starter_buddy))
+            elif level_up in self.early_buddies:
+                quantity = 4
+                waiting_on_prefill += 1
+            else:
+                quantity = 5
             progression_items += [self.create_item(level_up) for _ in range(quantity)]
 
         self.push_precollected(self.create_item(ItemName.BUDDY_POWER))
         if self.options.randomize_buddy_power:
-            progression_items += [self.create_item(ItemName.BUDDY_POWER) for _ in range(4)]
+            progression_items += [self.create_item(ItemName.BUDDY_POWER) for _ in range(3)]
+            waiting_on_prefill += 1 # 1 buddy power item will be placed at guaranteed_buddy_power_location
         else:
-            waiting_on_prefill = 4
+            waiting_on_prefill += 4
 
         # Add filler based on the number of remaining locations.
         filler_count = (
@@ -114,18 +162,34 @@ class BittyBuddiesWorld(World):
 
 
     def get_pre_fill_items(self) -> list[BittyBuddiesItem]:
-        # Returns the buddy power increases if they weren't randomized.
+        # Returns items placed in pre_fill.
         pre_fill_items = []
-        if not self.options.randomize_buddy_power:
+
+        for early_buddy in self.early_buddies:
+            pre_fill_items.append(self.create_item(early_buddy))
+
+        if self.options.randomize_buddy_power:
+            pre_fill_items.append(self.create_item(ItemName.BUDDY_POWER))
+        else:
             for _ in range(4): pre_fill_items.append(self.create_item(ItemName.BUDDY_POWER))
+
         return pre_fill_items
 
     def pre_fill(self):
-        # If we didn't randomize buddy power increases, we need to pre-fill them to the usual locations.
-        if not self.options.randomize_buddy_power:
+        # Pre-fill the two early buddies.
+        for i in range(2):
+            early_buddy_item = self.create_item(self.early_buddies[i])
+            self.get_location(self.early_buddy_locations[i]).place_locked_item(early_buddy_item)
+
+        # If buddy power is randomized, pre-fill the one guaranteed buddy power increase.
+        if self.options.randomize_buddy_power:
+            buddy_power_item = self.create_item(ItemName.BUDDY_POWER)
+            self.get_location(self.guaranteed_buddy_power_location).place_locked_item(buddy_power_item)
+        # If buddy power is not randomized, pre-fill the buddy power increases to the usual locations.
+        else:
             for location_name in BUDDY_POWER_LOCATION_NAMES:
                 buddy_power_item = self.create_item(ItemName.BUDDY_POWER)
-                self.multiworld.get_location(location_name, self.player).place_locked_item(buddy_power_item)
+                self.get_location(location_name).place_locked_item(buddy_power_item)
 
 
     def fill_slot_data(self) -> dict[str, Any]:
