@@ -41,11 +41,11 @@ class TestFlatTireEnabled(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Benson!
-            self.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP), True)
 
             # Flat tire should be inaccessible
             self.assertFalse(self.can_reach_location(LocationName.FLAT_TIRE))
 
         with self.subTest("Now add in Bazz to make the flat tire check accessible."):
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.FLAT_TIRE))

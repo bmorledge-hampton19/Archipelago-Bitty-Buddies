@@ -22,7 +22,7 @@ class TestEasyDifficulty(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Brie!
-            self.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
 
             # The first checks should be available in all cartridges except Have At Thee and Bazz's Big Day.
             # Importantly, the first BBD check is only available to Brie on the normal preset, not easy.
@@ -35,12 +35,13 @@ class TestEasyDifficulty(BittyBuddiesTestBase):
             self.assertFalse(self.can_reach_location(LocationName.BAZZS_BIG_DAY_1))
 
         with self.subTest("Level up Brie to make the BBD check available."):
-            self.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.BAZZS_BIG_DAY_1))
 
         with self.subTest("Maximize Brie's level to make all the first goal score locations available."):
             # This also tests for out-of-bounds buddy levels.
-            for _ in range(999): self.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP))
+            for _ in range(999):
+                self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
             self.assertTrue(all([
                 self.can_reach_location(LocationName.TRASH_DASH_1),
                 self.can_reach_location(LocationName.HAVE_AT_THEE_1),
@@ -70,7 +71,7 @@ class TestHardDifficulty(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Bazz!
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
 
             # The first checks should be available in all cartridges except Trash Dash.
             # Importantly, the first Trash Dash check is only available to Bazz on the normal preset, not hard.
@@ -85,22 +86,24 @@ class TestHardDifficulty(BittyBuddiesTestBase):
         with self.subTest("Level up Bazz a few times to make the Trash Dash check available."):
             # Even a level 3 Bazz can't reach the first check in hard difficulty,
             # even though the check is obtainable in the easy and normal difficulties.
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
             self.assertFalse(self.can_reach_location(LocationName.TRASH_DASH_1))
 
             # One more level should do the trick!
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.TRASH_DASH_1))
 
         with self.subTest("Test the heightened final goal score using bonus score checks."):
             # Given 1000 points of bonus score, the final goal score would be achievable in
             # easy and normal, but not hard.
-            for _ in range(101): self.collect(self.world.create_item(ItemName.TRASH_DASH_SCORE))
+            for _ in range(101):
+                self.multiworld.state.collect(self.world.create_item(ItemName.TRASH_DASH_SCORE), True)
             self.assertFalse(self.can_reach_location(EventName.VICTORY))
 
             # Another 1000 bonus points should do it though!
-            for _ in range(100): self.collect(self.world.create_item(ItemName.TRASH_DASH_SCORE))
+            for _ in range(100):
+                self.multiworld.state.collect(self.world.create_item(ItemName.TRASH_DASH_SCORE), True)
             self.assertTrue(self.can_reach_location(EventName.VICTORY))
 
 
@@ -122,7 +125,7 @@ class TestHighGoalScoresEasyLogic(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Bud!
-            self.collect(self.world.create_item(ItemName.BUD_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
 
             # With the default easy logic and high goal scores, no locations would normally be accessible
             # to level 1 Bud. However, the minimum logic score should kick in to make the first locations
@@ -140,10 +143,10 @@ class TestHighGoalScoresEasyLogic(BittyBuddiesTestBase):
             self.assertFalse(self.can_reach_location(LocationName.TRASH_DASH_2))
 
             # Add in a couple more buddies and the buddy power to make sure they can all be used.
-            self.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP))
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
-            self.collect(self.world.create_item(ItemName.BUDDY_POWER))
-            self.collect(self.world.create_item(ItemName.BUDDY_POWER))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
+            self.multiworld.state.collect(self.world.create_item(ItemName.BUDDY_POWER), True)
+            self.multiworld.state.collect(self.world.create_item(ItemName.BUDDY_POWER), True)
 
             # With the minimum score logic, these 3 buddies should exactly meet the score threshold for Trash Dash 2!
             self.assertFalse(self.can_reach_location(LocationName.TRASH_DASH_2))
@@ -155,12 +158,12 @@ class TestHighGoalScoresEasyLogic(BittyBuddiesTestBase):
 
             # Max out all the buddies!
             for _ in range(5):
-                self.collect(self.world.create_item(ItemName.BUD_LEVEL_UP))
-                self.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP))
-                self.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP))
-                self.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP))
-                self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
-                self.collect(self.world.create_item(ItemName.BUDDY_POWER))
+                self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
+                self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
+                self.multiworld.state.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP), True)
+                self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
+                self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
+                self.multiworld.state.collect(self.world.create_item(ItemName.BUDDY_POWER), True)
 
             # Even with maxed buddies and the minimum score logic, the total score in logic should be too low to
             # access the final goal score location...

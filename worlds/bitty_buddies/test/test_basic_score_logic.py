@@ -31,8 +31,9 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             # Remove the random starting buddy.
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
+
             # Add in Bud!
-            self.collect(self.world.create_item(ItemName.BUD_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
 
             # The first checks should be available in all cartridges except Have At Thee.
             self.assertTrue(all([
@@ -47,7 +48,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertFalse(self.can_reach_location(LocationName.ALL_BUDDIES_LEVEL_1))
 
         with self.subTest("Add in Bazz and check that all of the first checks are now accessible"):
-            self.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
             self.assertTrue(all([
                 self.can_reach_location(LocationName.TRASH_DASH_1),
                 self.can_reach_location(LocationName.HAVE_AT_THEE_1),
@@ -62,7 +63,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             "inaccessible to either buddy on their own."
         ):
             self.assertFalse(self.can_reach_location(LocationName.ACROBIRD_2))
-            self.collect(self.world.create_item(ItemName.BUDDY_POWER))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BUDDY_POWER), True)
             self.assertTrue(self.can_reach_location(LocationName.ACROBIRD_2))
 
 
@@ -73,7 +74,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Biff!
-            self.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
 
             # The first checks should be available in all cartridges except Acrobird.
             self.assertTrue(all([
@@ -90,7 +91,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertFalse(self.can_reach_location(LocationName.BAZZS_BIG_DAY_2))
 
             # Level up Biff!
-            self.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
 
             # Now the checks should be accessible!
             self.assertTrue(self.can_reach_location(LocationName.TRASH_DASH_2))
@@ -104,7 +105,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
             # Add in Benson!
-            self.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP))
+            self.multiworld.state.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP), True)
 
             # The first checks should be available in all cartridges except Acrobird.
             self.assertTrue(all([
@@ -116,7 +117,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertFalse(self.can_reach_location(LocationName.ACROBIRD_1))
 
         with self.subTest("Add in some bonus score so that the first Acrobird check is now collectible"):
-            self.collect(self.world.create_item(ItemName.ACROBIRD_SCORE))
+            self.multiworld.state.collect(self.world.create_item(ItemName.ACROBIRD_SCORE), True)
             self.assertTrue(self.can_reach_location(LocationName.ACROBIRD_1))
 
         with self.subTest("Add in a BUNCH of bonus score so that Acrobird is fully completable"):
@@ -124,15 +125,17 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             # 9 more bonus score checks gives us 10 in total, which should give:
             # 10 (5*2) points from the first two bonuses + 80 (10*8) points from the other 8 = 90 points.
             # So, we should be just short of the last check.
-            for _ in range(9): self.collect(self.world.create_item(ItemName.ACROBIRD_SCORE))
+            for _ in range(9):
+                self.multiworld.state.collect(self.world.create_item(ItemName.ACROBIRD_SCORE), True)
             self.assertTrue(self.can_reach_location(LocationName.ACROBIRD_4))
             self.assertFalse(self.can_reach_location(LocationName.ACROBIRD_5))
 
             # Adding in one more bonus score item should make the last Acrobird location accessible.
-            self.collect(self.world.create_item(ItemName.ACROBIRD_SCORE))
+            self.multiworld.state.collect(self.world.create_item(ItemName.ACROBIRD_SCORE), True)
             self.assertTrue(self.can_reach_location(LocationName.ACROBIRD_5))
 
         with self.subTest("Add in a frankly ridiculous amount of bonus score to make the final goal accessible."):
             self.assertFalse(self.can_reach_location(EventName.VICTORY))
-            for _ in range(999): self.collect(self.world.create_item(ItemName.ACROBIRD_SCORE))
+            for _ in range(999):
+                self.multiworld.state.collect(self.world.create_item(ItemName.ACROBIRD_SCORE), True)
             self.assertTrue(self.can_reach_location(EventName.VICTORY))
