@@ -45,29 +45,29 @@ LOGIC_SCORES: dict[Buddy, dict[Buddy, dict[int, dict[int, int]]]] = {
     # Trash Dash
     Buddy.BUD: {
         Buddy.BUD: {
-            LogicDifficulty.option_easy:   {1: 3, 2: 6,  3: 14, 4: 25, 5: 35},
-            LogicDifficulty.option_normal: {1: 6, 2: 10, 3: 14, 4: 30, 5: 45},
-            LogicDifficulty.option_hard:   {1: 6, 2: 14, 3: 14, 4: 40, 5: 60},
+            LogicDifficulty.option_easy:   {1: 3, 2: 6,  3: 15, 4: 25, 5: 35},
+            LogicDifficulty.option_normal: {1: 6, 2: 10, 3: 15, 4: 30, 5: 45},
+            LogicDifficulty.option_hard:   {1: 6, 2: 15, 3: 25, 4: 40, 5: 60},
         },
         Buddy.BIFF: {
-            LogicDifficulty.option_easy:   {1: 6, 2: 14,  3: 25, 4: 35, 5: 45},
+            LogicDifficulty.option_easy:   {1: 6, 2: 15,  3: 25, 4: 35, 5: 45},
             LogicDifficulty.option_normal: {1: 10, 2: 20, 3: 35, 4: 55, 5: 75},
             LogicDifficulty.option_hard:   {1: 10, 2: 30, 3: 50, 4: 75, 5: 100},
         },
         Buddy.BENSON: {
-            LogicDifficulty.option_easy:   {1: 0, 2: 3, 3: 6,  4: 6,  5: 14},
-            LogicDifficulty.option_normal: {1: 6, 2: 6, 3: 6,  4: 14, 5: 14},
-            LogicDifficulty.option_hard:   {1: 6, 2: 6, 3: 14, 4: 14, 5: 30},
+            LogicDifficulty.option_easy:   {1: 0, 2: 3, 3: 6,  4: 6,  5: 15},
+            LogicDifficulty.option_normal: {1: 6, 2: 6, 3: 6,  4: 15, 5: 15},
+            LogicDifficulty.option_hard:   {1: 6, 2: 6, 3: 15, 4: 15, 5: 30},
         },
         Buddy.BRIE: {
-            LogicDifficulty.option_easy:   {1: 6,  2: 14, 3: 25, 4: 40, 5: 50},
+            LogicDifficulty.option_easy:   {1: 6,  2: 15, 3: 25, 4: 40, 5: 50},
             LogicDifficulty.option_normal: {1: 10, 2: 25, 3: 40, 4: 60, 5: 80},
-            LogicDifficulty.option_hard:   {1: 14, 2: 35, 3: 55, 4: 80, 5: 100},
+            LogicDifficulty.option_hard:   {1: 15, 2: 35, 3: 55, 4: 80, 5: 100},
         },
         Buddy.BAZZ: {
             LogicDifficulty.option_easy:   {1: 0, 2: 3, 3: 6, 4: 6,  5: 6},
-            LogicDifficulty.option_normal: {1: 6, 2: 6, 3: 6, 4: 6,  5: 14},
-            LogicDifficulty.option_hard:   {1: 6, 2: 6, 3: 6, 4: 14, 5: 14},
+            LogicDifficulty.option_normal: {1: 6, 2: 6, 3: 6, 4: 6,  5: 15},
+            LogicDifficulty.option_hard:   {1: 6, 2: 6, 3: 6, 4: 15, 5: 15},
         },
     },
 
@@ -119,8 +119,8 @@ LOGIC_SCORES: dict[Buddy, dict[Buddy, dict[int, dict[int, int]]]] = {
         },
         Buddy.BRIE: {
             LogicDifficulty.option_easy:   {1: 5,  2: 11, 3: 16, 4: 32, 5: 48},
-            LogicDifficulty.option_normal: {1: 10, 2: 16, 3: 25, 4: 46, 5: 70},
-            LogicDifficulty.option_hard:   {1: 15, 2: 24, 3: 36, 4: 65, 5: 100},
+            LogicDifficulty.option_normal: {1: 10, 2: 16, 3: 30, 4: 46, 5: 70},
+            LogicDifficulty.option_hard:   {1: 15, 2: 25, 3: 40, 4: 65, 5: 100},
         },
         Buddy.BAZZ: {
             LogicDifficulty.option_easy:   {1: 2, 2: 4, 3: 6, 4: 8, 5: 13},
@@ -250,9 +250,18 @@ def is_buddy_home(cartridge: Buddy, buddy: Buddy) -> bool:
 def get_minimum_logic_score_for_high_goal_scores(cartridge: Buddy, buddy: Buddy, buddy_level: int) -> int:
     """Returns a minimum logic score to potentially adjust easy/normal logic for high goal scores"""
     if is_buddy_optimal(cartridge, buddy):
-        return [0, 10, 20, 35, 50, 80][buddy_level]
+        return [0, 10, 25, 40, 60, 85][buddy_level]
     elif is_buddy_home(cartridge, buddy):
-        return [0, 5, 12, 20, 30, 40][buddy_level]
+        return [0, 5, 15, 25, 35, 50][buddy_level]
+    else: return 0
+
+
+def get_minimum_logic_score_for_regular_goal_scores(cartridge: Buddy, buddy: Buddy, buddy_level: int) -> int:
+    """Returns a minimum logic score to potentially adjust easy logic for normal goal scores"""
+    if is_buddy_optimal(cartridge, buddy):
+        return [0, 5, 15, 30, 45, 60][buddy_level]
+    elif is_buddy_home(cartridge, buddy):
+        return [0, 5, 10, 15, 20, 30][buddy_level]
     else: return 0
 
 
@@ -293,6 +302,9 @@ def get_cartridge_logic_score(
             potential_buddy_scores[buddy] = LOGIC_SCORES[cartridge][buddy][options.logic_difficulty][buddy_level]
             if options.cartridge_goal_scores.value == CartridgeGoalScores.option_high:
                 min_logic_score = get_minimum_logic_score_for_high_goal_scores(cartridge, buddy, buddy_level)
+                if min_logic_score > potential_buddy_scores[buddy]: potential_buddy_scores[buddy] = min_logic_score
+            elif options.cartridge_goal_scores.value == CartridgeGoalScores.option_regular:
+                min_logic_score = get_minimum_logic_score_for_regular_goal_scores(cartridge, buddy, buddy_level)
                 if min_logic_score > potential_buddy_scores[buddy]: potential_buddy_scores[buddy] = min_logic_score
 
     buddy_power = min(max(state.count(ItemName.BUDDY_POWER,player),1),5)
