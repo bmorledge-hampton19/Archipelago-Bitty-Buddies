@@ -1,11 +1,14 @@
 from typing import NamedTuple
 
 from BaseClasses import Location
-from .names import LocationName, CARTRIDGE_GOAL_SCORE_NAMES, RegionName
+from .names import (
+    LocationName, RegionName, Buddy,
+    CARTRIDGE_GOAL_SCORE_NAMES, SILLY_CHECK_NAMES, SKILL_CHECK_NAMES
+)
 from .rules import (
     GenericCollectionRule, InclusionRule,
     create_generic_goal_score_rule, create_generic_buddy_power_rule,
-    flat_tire_generic_collection_rule, flat_tire_inclusion_rule
+    create_generic_buddy_level_rule, silly_check_inclusion_rule, skill_check_inclusion_rule
 )
 
 
@@ -44,8 +47,22 @@ for i, name in enumerate([
 ]):
     add_location_data(name, collection_rule = create_generic_buddy_power_rule(i+1))
 
-# Initialize the flat tire location
-add_location_data(
-    LocationName.FLAT_TIRE, collection_rule = flat_tire_generic_collection_rule,
-    inclusion_rule = flat_tire_inclusion_rule
-)
+# Initialize the silly check locations
+for buddy in Buddy:
+    add_location_data(
+        SILLY_CHECK_NAMES[buddy], collection_rule = create_generic_buddy_level_rule(buddy),
+        inclusion_rule = silly_check_inclusion_rule
+    )
+
+# Initialize the skill check locations
+for buddy in Buddy:
+    if buddy == Buddy.BUD: required_level = 4
+    elif buddy == Buddy.BIFF: required_level = 4
+    elif buddy == Buddy.BENSON: required_level = 1
+    elif buddy == Buddy.BRIE: required_level = 4
+    elif buddy == Buddy.BAZZ: required_level = 3
+    add_location_data(
+        SKILL_CHECK_NAMES[buddy],
+        collection_rule = create_generic_buddy_level_rule(buddy, required_level),
+        inclusion_rule = skill_check_inclusion_rule
+    )

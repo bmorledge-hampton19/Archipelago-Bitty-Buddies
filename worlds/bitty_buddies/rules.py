@@ -6,7 +6,7 @@ from BaseClasses import CollectionRule, CollectionState, MultiWorld
 from worlds.AutoWorld import LogicMixin
 from rule_builder.rules import Has
 
-from .names import Buddy, ItemName, EventName
+from .names import Buddy, ItemName, EventName, LEVEL_UP_NAMES
 from .options import BittyBuddiesOptions, CartridgeGoalScores, LogicDifficulty
 
 GenericCollectionRule = Callable[[int, BittyBuddiesOptions], CollectionRule]
@@ -341,7 +341,7 @@ def create_generic_goal_score_rule(cartridge: Buddy, which_level: int) -> Generi
 
 def is_buddy_power_check_in_logic(
     state: CollectionState, player: int, options: BittyBuddiesOptions, which_level: int
-):
+) -> bool:
     """Determine if the buddy power check for the given level is in logic by
     checking each cartridge to see if the level is in logic."""
     for cartridge in Buddy:
@@ -399,10 +399,12 @@ def create_generic_final_goal_rule() -> GenericCollectionRule:
     return partial(create_final_goal_rule)
 
 
-flat_tire_generic_collection_rule: GenericCollectionRule = (
-    lambda _player, _options: Has(ItemName.BAZZ_LEVEL_UP)
-)
-flat_tire_inclusion_rule: InclusionRule = lambda options: options.flat_tire_check
+def create_generic_buddy_level_rule(buddy: Buddy, level: int = 1) -> GenericCollectionRule:
+    return lambda _player, _options: Has(LEVEL_UP_NAMES[buddy], level)
+
+silly_check_inclusion_rule: InclusionRule = lambda options: options.silly_checks
+
+skill_check_inclusion_rule: InclusionRule = lambda options: options.skill_checks
 
 
 completion_rule = Has(EventName.VICTORY)

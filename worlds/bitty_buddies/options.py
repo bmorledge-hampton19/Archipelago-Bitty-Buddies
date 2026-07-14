@@ -83,12 +83,24 @@ class RandomizeBuddyPower(Toggle):
     default = True
 
 
-class FlatTireCheck(Toggle):
+class SillyChecks(Toggle):
     """
-    Adds a single check for popping a customer's tires with Bazz in Treatment To-Go.
+    Adds a check for the "silly interaction" that each buddy has in one of their sub-optimal cartridges.
+    (E.g., Bazz popping the tires on the cars in Treatment To-Go.
+    See the Bitty Buddies Archipelago game page for more detailed information on each check.)
     """
 
-    display_name = "Flat Tire Check"
+    display_name = "Silly Checks"
+
+
+class SkillChecks(Toggle):
+    """
+    Adds a tricky check that each buddy has in one of their optimal cartridges.
+    (E.g., Fly over a paper airplane with Brie in Trash Dash.
+    See the Bitty Buddies Archipelago game page for more detailed information on each check.)
+    """
+
+    display_name = "Skill Checks"
 
 
 class BittyBuddiesDeathLink(DeathLink):
@@ -136,7 +148,8 @@ class BittyBuddiesOptions(PerGameCommonOptions):
     logic_difficulty: LogicDifficulty
     final_goal_score: FinalGoalScore
     randomize_buddy_power: RandomizeBuddyPower
-    flat_tire_check: FlatTireCheck
+    silly_checks: SillyChecks
+    skill_checks: SkillChecks
     death_link: BittyBuddiesDeathLink
     death_link_receive_behavior: DeathLinkReceiveBehavior
     death_link_receive_chance: DeathLinkReceiveChance

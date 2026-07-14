@@ -50,7 +50,18 @@ class LocationName(StrEnum):
     ALL_BUDDIES_LEVEL_3 = "3rd Goal Score Achieved in All Cartridges"
     ALL_BUDDIES_LEVEL_4 = "4th Goal Score Achieved in All Cartridges"
 
-    FLAT_TIRE = "Flat Tire"
+    MEAN_MUGGING = "Bud Silly Check (Mean Mugging)"
+    HEAVYWEIGHT_CHAMPION = "Biff Silly Check (Heavyweight Champion)"
+    FRICTIONLESS_FRUIT = "Benson Silly Check (Frictionless Fruit)"
+    NEGATIVE_JING = "Brie Silly Check (Negative Jing)"
+    ZERO_STAR_REVIEW = "Bazz Silly Check (0-star Review)"
+
+    FAST_PHARMA = "Bud Skill Check (Fast Pharma)"
+    PARRY_KING = "Biff Skill Check (Parry King)"
+    MIRACLE_CURE = "Benson Skill Check (Miracle Cure)"
+    HIGH_FLYER = "Brie Skill Check (High Flyer)"
+    SHARP_SHOOTER = "Bazz Skill Check (Sharp Shooter)"
+
 
 CARTRIDGE_GOAL_SCORE_NAMES: dict[Buddy, list[LocationName]] = {
     Buddy.BUD: [
@@ -78,6 +89,16 @@ CARTRIDGE_GOAL_SCORE_NAMES: dict[Buddy, list[LocationName]] = {
 BUDDY_POWER_LOCATION_NAMES: list[LocationName] = [
     LocationName.ALL_BUDDIES_LEVEL_1, LocationName.ALL_BUDDIES_LEVEL_2,
     LocationName.ALL_BUDDIES_LEVEL_3, LocationName.ALL_BUDDIES_LEVEL_4
+]
+
+SILLY_CHECK_NAMES: list[LocationName] = [
+    LocationName.MEAN_MUGGING, LocationName.HEAVYWEIGHT_CHAMPION, LocationName.FRICTIONLESS_FRUIT,
+    LocationName.NEGATIVE_JING, LocationName.ZERO_STAR_REVIEW,
+]
+
+SKILL_CHECK_NAMES: list[LocationName] = [
+    LocationName.FAST_PHARMA, LocationName.PARRY_KING, LocationName.MIRACLE_CURE,
+    LocationName.HIGH_FLYER, LocationName.SHARP_SHOOTER,
 ]
 
 

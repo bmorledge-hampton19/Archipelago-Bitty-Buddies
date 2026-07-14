@@ -25,9 +25,10 @@ from the base game or local randomizer, so your high scores will persist if you 
 All of the your progress in the randomizer can be tracked in-game. The check marks below each buddy icon on the
 Bitty Boy represent the number of goal scores you have achieved in that buddy's cartridge. Also, remember that you
 will receive additional checks when you have achieved the first, second, third, and fourth goal scores across ALL
-cartridges (the "buddy power" checks).
+cartridges (the "buddy power" checks). If you have silly and/or skill checks enabled, these will be represented
+by unique symbols below each buddy's goal score check marks.
 
 When you are selecting a game to play from the main Bitty Buddies cartridge, both your current high score and
 the maximum score in logic will be displayed. If the logic score is higher than a goal score that you have not
-yet achieved, it will be suffixed with an exclamation point! (This exclamation point will also display for
-Treatment To-Go if the flat tire check is enabled and collectible.)
+yet achieved, it will be suffixed with an exclamation point! (This exclamation point will also show up when
+you have a silly/skill check in logic for that cartridge.)

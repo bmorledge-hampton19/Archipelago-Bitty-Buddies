@@ -5,7 +5,7 @@
 Bitty Buddies is a short, genre-spanning experience and a love letter to retro handheld gaming. Dust off your Bitty
 Boy and prepare to master 5 different cartridges, each containing a unique game to chase high scores in. As your
 scores improve, you'll unlock and level up the "buddies" that call each cartridge home. Each of them is proficient
-in their own game, but with some experimentation, you may find that their true talent lies elsewhere...
+in their own game, but with some experimentation, you'll find that their true talent lies elsewhere...
 
 ## Where is the options page?
 
@@ -25,3 +25,21 @@ game with a different lineup of buddies than you're used to!
 
 The goal is to achieve the total high score specified in your YAML. The default goal score is 999 (the same as the
 base game) but you can set it as high as 2000 points if you're looking for a challenge!
+
+## What are the "Silly Checks" that can be enabled in the options?
+
+The silly checks are 5 extra locations centered around interactions between buddies and their sub-optimal cartridges:
+- Bud's silly check (Mean Mugging): Get your shoe stolen by an angry balloon in Bazz's Big Day.
+- Biff's silly check (Heavyweight Champion): Drop to the ground without slowing your fall in Acrobird.
+- Benson's silly check (Frictionless Fruit): Hit one of the banana peels with your tire in Trash Dash.
+- Brie's silly check (Negative Jing): Have Brie fly away from Have at Thee by refusing to block or attack.
+- Bazz's silly check (0-Star Review): Pop the tires on a customer's car by getting too close in Treatment To-Go.
+
+## What are the "Skill Checks" that can be enabled in the options?
+
+The skill checks are 5 extra locations for buddies in their optimal cartridges:
+- Bud's skill check (Fast Pharma): Deliver orders to three different customers within 7 seconds in Treatment To-Go.
+- Biff's skill check (Parry King): Deflect 5 balloons with a single block action in Bazz's Big Day.
+- Benson's skill check (Miracle Cure): Go below 0 hp and survive by regenerating health in Have at Thee.
+- Brie's skill check (High Flyer): Fly over a paper airplane in Trash Dash.
+- Bazz's skill check (Sharp Shooter): Score a bullseye on a small, moving target in Acrobird.

@@ -196,7 +196,8 @@ class BittyBuddiesWorld(World):
         return {
             "cartridge_goal_scores" : self.options.cartridge_goal_scores.value,
             "final_goal_score" : self.options.final_goal_score.value,
-            "flat_tire_check" : self.options.flat_tire_check.value,
+            "silly_checks" : self.options.silly_checks.value,
+            "skill_checks" : self.options.skill_checks.value,
             "death_link" : self.options.death_link.value,
             "death_link_receive_behavior" : self.options.death_link_receive_behavior.value,
             "death_link_receive_chance" : self.options.death_link_receive_chance.value
