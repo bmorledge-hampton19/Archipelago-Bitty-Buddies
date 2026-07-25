@@ -118,7 +118,7 @@ class DeathLinkReceiveBehavior(Choice):
     Determines the effect of received death links.
     - Game Over: Death links trigger a game over.
     - Next Buddy: Death links trigger a transition to the next available buddy (as if the current buddy just failed).
-    If there are no buddies remaining for the current game, a game over is triggered.
+      If there are no buddies remaining for the current game, a game over is triggered.
     """
 
     display_name = "Death Link Receive Behavior"

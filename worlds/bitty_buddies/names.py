@@ -60,7 +60,7 @@ class LocationName(StrEnum):
     PARRY_KING = "Biff Skill Check (Parry King)"
     MIRACLE_CURE = "Benson Skill Check (Miracle Cure)"
     HIGH_FLYER = "Brie Skill Check (High Flyer)"
-    SHARP_SHOOTER = "Bazz Skill Check (Sharp Shooter)"
+    SHARPSHOOTER = "Bazz Skill Check (Sharpshooter)"
 
 
 CARTRIDGE_GOAL_SCORE_NAMES: dict[Buddy, list[LocationName]] = {
@@ -98,7 +98,7 @@ SILLY_CHECK_NAMES: list[LocationName] = [
 
 SKILL_CHECK_NAMES: list[LocationName] = [
     LocationName.FAST_PHARMA, LocationName.PARRY_KING, LocationName.MIRACLE_CURE,
-    LocationName.HIGH_FLYER, LocationName.SHARP_SHOOTER,
+    LocationName.HIGH_FLYER, LocationName.SHARPSHOOTER,
 ]
 
 

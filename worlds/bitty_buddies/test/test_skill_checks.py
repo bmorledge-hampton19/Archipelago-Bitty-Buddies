@@ -119,9 +119,9 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.HIGH_FLYER))
 
-    def test_sharp_shooter_accessibility(self):
+    def test_sharpshooter_accessibility(self):
 
-        with self.subTest("Test Sharp Shooter accessibility for a level 5 Bud, who can't access it."):
+        with self.subTest("Test Sharpshooter accessibility for a level 5 Bud, who can't access it."):
             # Remove the random starting buddy.
             for level_up_name in LEVEL_UP_NAMES: self.remove_by_name(level_up_name)
 
@@ -129,14 +129,14 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
             for _ in range(5):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
 
-            # Sharp Shooter should be inaccessible
-            self.assertFalse(self.can_reach_location(LocationName.SHARP_SHOOTER))
+            # Sharpshooter should be inaccessible
+            self.assertFalse(self.can_reach_location(LocationName.SHARPSHOOTER))
 
         with self.subTest("Now add in Bazz. The location should still be inaccessible."):
             self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
-            self.assertFalse(self.can_reach_location(LocationName.SHARP_SHOOTER))
+            self.assertFalse(self.can_reach_location(LocationName.SHARPSHOOTER))
 
         with self.subTest("Level up Bazz to 3 so that the location becomes accessible."):
             for _ in range(2):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BAZZ_LEVEL_UP), True)
-            self.assertTrue(self.can_reach_location(LocationName.SHARP_SHOOTER))
+            self.assertTrue(self.can_reach_location(LocationName.SHARPSHOOTER))
