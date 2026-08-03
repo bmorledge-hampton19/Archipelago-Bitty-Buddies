@@ -15,7 +15,7 @@ class TestEasyDifficulty(BittyBuddiesTestBase):
     }
 
 
-    def test_easy_difficulty(self):
+    def test_easy_difficulty(self) -> None:
 
         with self.subTest("Test the first few checks with Brie as the starting buddy"):
             # Remove the random starting buddy.
@@ -64,7 +64,7 @@ class TestHardDifficulty(BittyBuddiesTestBase):
     }
 
 
-    def test_hard_difficulty(self):
+    def test_hard_difficulty(self) -> None:
 
         with self.subTest("Test the first few checks with Bazz as the starting buddy"):
             # Remove the random starting buddy.
@@ -118,7 +118,7 @@ class TestHighGoalScoresEasyLogic(BittyBuddiesTestBase):
         "randomize_buddy_power": True
     }
 
-    def test_high_goal_scores_easy_logic(self):
+    def test_high_goal_scores_easy_logic(self) -> None:
 
         with self.subTest("Test the first few checks with Bud as the starting buddy"):
             # Remove the random starting buddy.

@@ -207,7 +207,7 @@ class ScoreLogicMixin(LogicMixin):
     # I.e., dictionary is structured as dict[player][cartridge][buddy] = max score in logic
     bitty_buddies_individual_logic_scores: dict[int, dict[Buddy, dict[Buddy, int]]]
 
-    def init_mixin(self, multiworld: MultiWorld):
+    def init_mixin(self, multiworld: MultiWorld) -> None:
         self.bitty_buddies_achievable_goals = {}
         self.bitty_buddies_individual_logic_scores = {}
         for player in multiworld.get_game_players("Bitty Buddies"):

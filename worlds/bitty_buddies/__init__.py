@@ -45,7 +45,7 @@ class BittyBuddiesWorld(World):
         return self.create_item(self.get_filler_item_name())
 
 
-    def generate_early(self):
+    def generate_early(self) -> None:
         # Set up some initial checks with more concrete logic for a less restrictive start.
 
         # Roll a random starter buddy.
@@ -60,7 +60,7 @@ class BittyBuddiesWorld(World):
             self.early_buddies.append(early_buddy)
 
 
-    def create_regions(self):
+    def create_regions(self) -> None:
         # Initialize all the regions.
         regions: list[Region] = []
         for region_name in region_data_dict:
@@ -101,7 +101,7 @@ class BittyBuddiesWorld(World):
                 self.set_rule(self.get_location(name), event_data.rule(self.player, self.options))
 
 
-    def create_items(self):
+    def create_items(self) -> None:
         # Create the core progression items.
         progression_items: list[BittyBuddiesItem] = []
         waiting_on_prefill = 0
@@ -134,7 +134,7 @@ class BittyBuddiesWorld(World):
             self.multiworld.local_early_items[self.player][early_buddy.value] = 1
 
 
-    def set_rules(self):
+    def set_rules(self) -> None:
         # Entrance and location rules were already set in create_regions. We just need to set the completion rule.
         self.set_completion_rule(completion_rule)
 
@@ -153,7 +153,7 @@ class BittyBuddiesWorld(World):
 
         return pre_fill_items
 
-    def pre_fill(self):
+    def pre_fill(self) -> None:
         # If buddy power is not randomized, pre-fill the buddy power increases to the usual locations.
         if not self.options.randomize_buddy_power:
             for location_name in BUDDY_POWER_LOCATION_NAMES:

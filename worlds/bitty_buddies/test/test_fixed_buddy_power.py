@@ -16,7 +16,7 @@ class TestFixedBuddyPower(BittyBuddiesTestBase):
         "randomize_buddy_power": False
     }
 
-    def test_fixed_buddy_power(self):
+    def test_fixed_buddy_power(self) -> None:
         buddy_power_locations = set(
             location.name for location in self.multiworld.find_item_locations(ItemName.BUDDY_POWER, self.player)
         )

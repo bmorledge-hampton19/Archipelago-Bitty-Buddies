@@ -14,7 +14,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
     }
 
 
-    def test_initial_items(self):
+    def test_initial_items(self) -> None:
 
         with self.subTest("Test checks that the initial buddy has been collected."):
             self.assertTrue(any(
@@ -25,7 +25,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertTrue(self.multiworld.state.has(ItemName.BUDDY_POWER, self.player))
 
 
-    def test_adding_buddies(self):
+    def test_adding_buddies(self) -> None:
 
         with self.subTest("Test the starting checks for Bud"):
             # Remove the random starting buddy.
@@ -67,7 +67,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertTrue(self.can_reach_location(LocationName.ACROBIRD_2))
 
 
-    def test_buddy_levels(self):
+    def test_buddy_levels(self) -> None:
 
         with self.subTest("Test the starting checks for Biff"):
             # Remove the random starting buddy.
@@ -98,7 +98,7 @@ class TestBasicScoreLogic(BittyBuddiesTestBase):
             self.assertTrue(self.can_reach_location(LocationName.BAZZS_BIG_DAY_2))
 
 
-    def test_bonus_score(self):
+    def test_bonus_score(self) -> None:
 
         with self.subTest("Test the starting checks for Biff"):
             # Remove the random starting buddy.

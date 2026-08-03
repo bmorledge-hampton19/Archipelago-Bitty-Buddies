@@ -30,7 +30,7 @@ base_id = 1
 def add_location_data(
     name: LocationName, region: RegionName = RegionName.MENU,
     collection_rule: GenericCollectionRule = None, inclusion_rule: InclusionRule = None
-):
+) -> None:
     location_data_dict[name] = LocationData(
         base_id+len(location_data_dict), region, collection_rule, inclusion_rule
     )

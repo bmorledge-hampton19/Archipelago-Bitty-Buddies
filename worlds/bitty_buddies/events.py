@@ -22,7 +22,7 @@ event_data_dict: dict[EventName, EventData] = {
 }
 
 
-def create_events(world: World):
+def create_events(world: World) -> None:
     """Creates all the events for the Bitty Buddies Archipelago, including setting their collection rules.
     (Right now, this is only the Victory event.)"""
 

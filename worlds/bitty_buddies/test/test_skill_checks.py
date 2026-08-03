@@ -14,7 +14,7 @@ class TestSkillChecksDisabled(BittyBuddiesTestBase):
         "skill_checks": False
     }
 
-    def test_skill_checks_disabled(self):
+    def test_skill_checks_disabled(self) -> None:
         for location in SKILL_CHECK_NAMES:
             self.assertRaises(KeyError, self.world.get_location, location)
 
@@ -31,12 +31,12 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
         "skill_checks": True
     }
 
-    def test_skill_checks_enabled(self):
+    def test_skill_checks_enabled(self) -> None:
         for location in SKILL_CHECK_NAMES:
             try: self.world.get_location(location)
             except KeyError: self.fail()
 
-    def test_fast_pharma_accessibility(self):
+    def test_fast_pharma_accessibility(self) -> None:
 
         with self.subTest("Test Fast Pharma accessibility for a level 5 Biff, who can't access it."):
             # Remove the random starting buddy.
@@ -58,7 +58,7 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.FAST_PHARMA))
 
-    def test_parry_king_accessibility(self):
+    def test_parry_king_accessibility(self) -> None:
 
         with self.subTest("Test Parry King accessibility for a level 5 Benson, who can't access it."):
             # Remove the random starting buddy.
@@ -80,7 +80,7 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.PARRY_KING))
 
-    def test_miracle_cure_accessibility(self):
+    def test_miracle_cure_accessibility(self) -> None:
 
         with self.subTest("Test Miracle Cure accessibility for a level 5 Brie, who can't access it."):
             # Remove the random starting buddy.
@@ -97,7 +97,7 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
             self.multiworld.state.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.MIRACLE_CURE))
 
-    def test_high_flyer_accessibility(self):
+    def test_high_flyer_accessibility(self) -> None:
 
         with self.subTest("Test High Flyer accessibility for a level 5 Bazz, who can't access it."):
             # Remove the random starting buddy.
@@ -119,7 +119,7 @@ class TestSkillChecksEnabled(BittyBuddiesTestBase):
                 self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.HIGH_FLYER))
 
-    def test_sharpshooter_accessibility(self):
+    def test_sharpshooter_accessibility(self) -> None:
 
         with self.subTest("Test Sharpshooter accessibility for a level 5 Bud, who can't access it."):
             # Remove the random starting buddy.

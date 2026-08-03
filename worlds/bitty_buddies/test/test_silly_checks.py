@@ -14,7 +14,7 @@ class TestSillyChecksDisabled(BittyBuddiesTestBase):
         "silly_checks": False
     }
 
-    def test_silly_checks_disabled(self):
+    def test_silly_checks_disabled(self) -> None:
         for location in SILLY_CHECK_NAMES:
             self.assertRaises(KeyError, self.world.get_location, location)
 
@@ -31,12 +31,12 @@ class TestSillyChecksEnabled(BittyBuddiesTestBase):
         "silly_checks": True
     }
 
-    def test_silly_checks_enabled(self):
+    def test_silly_checks_enabled(self) -> None:
         for location in SILLY_CHECK_NAMES:
             try: self.world.get_location(location)
             except KeyError: self.fail()
 
-    def test_mean_mugging_accessibility(self):
+    def test_mean_mugging_accessibility(self) -> None:
 
         with self.subTest("Test Mean Mugging accessibility for just Biff, who can't access it."):
             # Remove the random starting buddy.
@@ -52,7 +52,7 @@ class TestSillyChecksEnabled(BittyBuddiesTestBase):
             self.multiworld.state.collect(self.world.create_item(ItemName.BUD_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.MEAN_MUGGING))
 
-    def test_heavyweight_champion_accessibility(self):
+    def test_heavyweight_champion_accessibility(self) -> None:
 
         with self.subTest("Test Heavyweight Champion accessibility for just Benson, who can't access it."):
             # Remove the random starting buddy.
@@ -68,7 +68,7 @@ class TestSillyChecksEnabled(BittyBuddiesTestBase):
             self.multiworld.state.collect(self.world.create_item(ItemName.BIFF_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.HEAVYWEIGHT_CHAMPION))
 
-    def test_frictionless_fruit_accessibility(self):
+    def test_frictionless_fruit_accessibility(self) -> None:
 
         with self.subTest("Test Frictionless Fruit accessibility for just Brie, who can't access it."):
             # Remove the random starting buddy.
@@ -84,7 +84,7 @@ class TestSillyChecksEnabled(BittyBuddiesTestBase):
             self.multiworld.state.collect(self.world.create_item(ItemName.BENSON_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.FRICTIONLESS_FRUIT))
 
-    def test_negative_jing_accessibility(self):
+    def test_negative_jing_accessibility(self) -> None:
 
         with self.subTest("Test Negative Jing accessibility for just Bazz, who can't access it."):
             # Remove the random starting buddy.
@@ -100,7 +100,7 @@ class TestSillyChecksEnabled(BittyBuddiesTestBase):
             self.multiworld.state.collect(self.world.create_item(ItemName.BRIE_LEVEL_UP), True)
             self.assertTrue(self.can_reach_location(LocationName.NEGATIVE_JING))
 
-    def test_zero_star_review_accessibility(self):
+    def test_zero_star_review_accessibility(self) -> None:
 
         with self.subTest("Test Zero Star Review accessibility for just Bud, who can't access it."):
             # Remove the random starting buddy.
