@@ -168,6 +168,8 @@ class BittyBuddiesWorld(World):
             "silly_checks" : self.options.silly_checks.value,
             "skill_checks" : self.options.skill_checks.value,
             "death_link" : self.options.death_link.value,
-            "death_link_receive_behavior" : self.options.death_link_receive_behavior.value,
-            "death_link_receive_chance" : self.options.death_link_receive_chance.value
+            "death_link_behavior" : self.options.death_link_behavior,
+            "death_link_receive_behavior" : self.options.death_link_receive_effect.value,
+            "death_link_receive_chance" : self.options.death_link_receive_chance.value,
+            "death_link_group" : self.options.death_link_group
         }

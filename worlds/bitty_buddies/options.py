@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Choice, Range, NamedRange, Toggle, PerGameCommonOptions, DeathLink, OptionGroup
+from Options import Choice, Range, NamedRange, Toggle, FreeText, PerGameCommonOptions, DeathLink, OptionGroup
 
 
 class CartridgeGoalScores(Choice):
@@ -113,7 +113,21 @@ class BittyBuddiesDeathLink(DeathLink):
     display_name = "Death Link"
 
 
-class DeathLinkReceiveBehavior(Choice):
+class DeathLinkBehavior(Choice):
+    """
+    Enable full (send and receive) or partial (send only; receive only) death link.
+    """
+
+    display_name = "Death Link Behavior"
+
+    option_send_and_receive = 0
+    option_send_only = 1
+    option_receive_only = 2
+
+    default = option_send_and_receive
+
+
+class DeathLinkReceiveEffect(Choice):
     """
     Determines the effect of received death links.
     - Game Over: Death links trigger a game over.
@@ -121,7 +135,7 @@ class DeathLinkReceiveBehavior(Choice):
       If there are no buddies remaining for the current game, a game over is triggered.
     """
 
-    display_name = "Death Link Receive Behavior"
+    display_name = "Death Link Receive Effect"
 
     option_game_over = 0
     option_next_buddy = 1
@@ -142,6 +156,14 @@ class DeathLinkReceiveChance(Range):
     default = 100
 
 
+class DeathLinkGroup(FreeText):
+    """
+    Restricts death link to players with the same group name.
+    Leave blank to enable death link with all ungrouped players.
+    """
+    display_name = "Death Link Group"
+
+
 @dataclass
 class BittyBuddiesOptions(PerGameCommonOptions):
     cartridge_goal_scores: CartridgeGoalScores
@@ -151,14 +173,16 @@ class BittyBuddiesOptions(PerGameCommonOptions):
     silly_checks: SillyChecks
     skill_checks: SkillChecks
     death_link: BittyBuddiesDeathLink
-    death_link_receive_behavior: DeathLinkReceiveBehavior
+    death_link_behavior: DeathLinkBehavior
+    death_link_receive_effect: DeathLinkReceiveEffect
     death_link_receive_chance: DeathLinkReceiveChance
+    death_link_group: DeathLinkGroup
 
 
 option_groups = [
     OptionGroup(
         "Death Link Options",
-        [BittyBuddiesDeathLink, DeathLinkReceiveBehavior, DeathLinkReceiveChance],
+        [BittyBuddiesDeathLink, DeathLinkBehavior, DeathLinkReceiveEffect, DeathLinkReceiveChance, DeathLinkGroup],
     ),
 ]
 
