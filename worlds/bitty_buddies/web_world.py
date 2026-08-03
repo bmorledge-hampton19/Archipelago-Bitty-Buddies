@@ -8,6 +8,7 @@ class BittyBuddiesWebWorld(WebWorld):
     game = "Bitty Buddies"
 
     theme = "partyTime"
+    rich_text_options_doc = True
 
     setup_en = Tutorial(
         "Multiworld Setup Guide",
