@@ -2,7 +2,7 @@ from typing import Any
 
 from BaseClasses import Region
 from worlds.AutoWorld import World
-from .names import LocationName, BUDDY_POWER_LOCATION_NAMES, ItemName, LEVEL_UP_NAMES, BONUS_SCORE_NAMES
+from .names import BUDDY_POWER_LOCATION_NAMES, ItemName, LEVEL_UP_NAMES, BONUS_SCORE_NAMES
 from .regions import region_data_dict
 from .locations import BittyBuddiesLocation, location_data_dict
 from .events import event_data_dict
@@ -164,12 +164,13 @@ class BittyBuddiesWorld(World):
     def fill_slot_data(self) -> dict[str, Any]:
         return {
             "cartridge_goal_scores" : self.options.cartridge_goal_scores.value,
+            "logic_difficulty" : self.options.logic_difficulty.value,
             "final_goal_score" : self.options.final_goal_score.value,
             "silly_checks" : self.options.silly_checks.value,
             "skill_checks" : self.options.skill_checks.value,
             "death_link" : self.options.death_link.value,
-            "death_link_behavior" : self.options.death_link_behavior,
-            "death_link_receive_behavior" : self.options.death_link_receive_effect.value,
+            "death_link_behavior" : self.options.death_link_behavior.value,
+            "death_link_receive_effect" : self.options.death_link_receive_effect.value,
             "death_link_receive_chance" : self.options.death_link_receive_chance.value,
-            "death_link_group" : self.options.death_link_group
+            "death_link_group" : self.options.death_link_group.value
         }
