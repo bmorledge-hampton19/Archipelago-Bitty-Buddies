@@ -75,9 +75,11 @@ class BittyBuddiesWorld(World):
         # Add regions.
         self.multiworld.regions += regions
 
-        # Create all the locations, including setting collection rules
+        # Create all the locations, and set their collection rules
         for name in location_data_dict:
             location_data = location_data_dict[name]
+
+            # Exclude locations with inclusion rules that are not satisfied.
             if location_data.inclusion_rule and not location_data.inclusion_rule(self.options): continue
 
             region = self.get_region(location_data.region_name)
@@ -87,7 +89,7 @@ class BittyBuddiesWorld(World):
                 self.set_rule(location, location_data.collection_rule(self.player, self.options))
 
 
-        # Create all the events, including setting collection rules.
+        # Create all the events, and set their collection rules.
         # (Right now, this is only the Victory event.)
         for name in event_data_dict:
             event_data = event_data_dict[name]
@@ -143,12 +145,7 @@ class BittyBuddiesWorld(World):
         # Returns items placed in pre_fill.
         pre_fill_items = []
 
-        for early_buddy in self.early_buddies:
-            pre_fill_items.append(self.create_item(early_buddy))
-
-        if self.options.randomize_buddy_power:
-            pre_fill_items.append(self.create_item(ItemName.BUDDY_POWER))
-        else:
+        if not self.options.randomize_buddy_power:
             for _ in range(4): pre_fill_items.append(self.create_item(ItemName.BUDDY_POWER))
 
         return pre_fill_items
