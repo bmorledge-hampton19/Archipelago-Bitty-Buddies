@@ -105,8 +105,7 @@ class BittyBuddiesWorld(World):
 
     def create_items(self) -> None:
         # Create the core progression items.
-        progression_items: list[BittyBuddiesItem] = []
-        waiting_on_prefill = 0
+        items_to_randomize: list[BittyBuddiesItem] = []
 
         for level_up in LEVEL_UP_NAMES:
             quantity: int
@@ -115,21 +114,23 @@ class BittyBuddiesWorld(World):
                 self.push_precollected(self.create_item(self.starter_buddy))
             else:
                 quantity = 5
-            progression_items += [self.create_item(level_up) for _ in range(quantity)]
+            items_to_randomize += [self.create_item(level_up) for _ in range(quantity)]
 
         self.push_precollected(self.create_item(ItemName.BUDDY_POWER))
-        if self.options.randomize_buddy_power:
-            progression_items += [self.create_item(ItemName.BUDDY_POWER) for _ in range(4)]
-        else:
-            waiting_on_prefill += 4
+        for location_name in BUDDY_POWER_LOCATION_NAMES:
+            buddy_power_item = self.create_item(ItemName.BUDDY_POWER)
+            if self.options.randomize_buddy_power:
+                items_to_randomize.append(buddy_power_item)
+            else:
+                self.get_location(location_name).place_locked_item(buddy_power_item)
 
         # Add filler based on the number of remaining locations.
         filler_count = (
-            len(self.multiworld.get_unfilled_locations(self.player)) - len(progression_items) - waiting_on_prefill
+            len(self.multiworld.get_unfilled_locations(self.player)) - len(items_to_randomize)
         )
-        filler_items = [self.create_filler() for _ in range(filler_count)]
+        for _ in range(filler_count): items_to_randomize.append(self.create_filler())
 
-        self.multiworld.itempool += progression_items + filler_items
+        self.multiworld.itempool += items_to_randomize
 
         # Make sure that the two other early buddies will be found in sphere 1.
         for early_buddy in self.early_buddies:
@@ -139,23 +140,6 @@ class BittyBuddiesWorld(World):
     def set_rules(self) -> None:
         # Entrance and location rules were already set in create_regions. We just need to set the completion rule.
         self.set_completion_rule(completion_rule)
-
-
-    def get_pre_fill_items(self) -> list[BittyBuddiesItem]:
-        # Returns items placed in pre_fill.
-        pre_fill_items = []
-
-        if not self.options.randomize_buddy_power:
-            for _ in range(4): pre_fill_items.append(self.create_item(ItemName.BUDDY_POWER))
-
-        return pre_fill_items
-
-    def pre_fill(self) -> None:
-        # If buddy power is not randomized, pre-fill the buddy power increases to the usual locations.
-        if not self.options.randomize_buddy_power:
-            for location_name in BUDDY_POWER_LOCATION_NAMES:
-                buddy_power_item = self.create_item(ItemName.BUDDY_POWER)
-                self.get_location(location_name).place_locked_item(buddy_power_item)
 
 
     def fill_slot_data(self) -> dict[str, Any]:
