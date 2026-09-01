@@ -147,6 +147,7 @@ class BittyBuddiesWorld(World):
             "cartridge_goal_scores" : self.options.cartridge_goal_scores.value,
             "logic_difficulty" : self.options.logic_difficulty.value,
             "final_goal_score" : self.options.final_goal_score.value,
+            "randomize_buddy_power" : self.options.randomize_buddy_power.value,
             "silly_checks" : self.options.silly_checks.value,
             "skill_checks" : self.options.skill_checks.value,
             "death_link" : self.options.death_link.value,
